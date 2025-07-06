@@ -36,13 +36,19 @@ function App() {
     },
   };
 
-  // Dynamically set header height for padding
+  // Dynamically set header height with fallback
   useEffect(() => {
-    const header = document.getElementById('main-header');
-    if (header) {
-      const headerHeight = header.offsetHeight;
-      document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
-    }
+    const setHeaderHeight = () => {
+      const header = document.getElementById('main-header');
+      if (header) {
+        const headerHeight = header.offsetHeight;
+        console.log('Header height set to:', headerHeight); // Debug log
+        document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+      }
+    };
+    setHeaderHeight(); // Set initially
+    window.addEventListener('resize', setHeaderHeight); // Update on resize
+    return () => window.removeEventListener('resize', setHeaderHeight); // Cleanup
   }, []);
 
   return (
@@ -61,8 +67,8 @@ function App() {
         </button>
       </header>
 
-      {/* Main content with dynamic padding */}
-      <main className="container mx-auto pb-12 px-6" style={{ paddingTop: 'var(--header-height)' }}>
+      {/* Main content with dynamic padding and fallback */}
+      <main className="container mx-auto pb-12 px-6" style={{ paddingTop: 'var(--header-height, 10rem)' }}>
         <div className="text-center mb-12 mt-8">
           <p className="text-2xl text-makaranga-gray mb-6 animate-fade-in">{content[language].description}</p>
           <div className="relative">
