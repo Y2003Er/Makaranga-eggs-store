@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+  // State for search and language
   const [searchTerm, setSearchTerm] = useState('');
   const [language, setLanguage] = useState('EN');
 
+  // Product data with images (place images in the public folder)
   const products = [
     { name: 'Fresh Organic Eggs', price: 'TSh 7,000', location: 'Dar es Salaam', image: '/organic-eggs.jpg' },
     { name: 'Wholesale Egg Tray', price: 'TSh 6,500', location: 'Arusha', image: '/egg-tray.jpg' },
     { name: 'Village Free-Range Eggs', price: 'TSh 8,000', location: 'Village', image: '/free-range-eggs.jpg' },
   ];
 
+  // Filter products based on search term
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.location.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Language content
   const content = {
     EN: {
       welcome: 'Welcome to Makaranga Eggs Store',
@@ -32,9 +36,19 @@ function App() {
     },
   };
 
+  // Dynamically set header height for padding
+  useEffect(() => {
+    const header = document.getElementById('main-header');
+    if (header) {
+      const headerHeight = header.offsetHeight;
+      document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-makaranga-green/10 via-white to-makaranga-blue/10 font-sans">
-      <header className="bg-gradient-to-r from-makaranga-green to-makaranga-blue text-white shadow-lg p-6 flex justify-between items-center fixed w-full z-10">
+      {/* Header with an ID for dynamic height calculation */}
+      <header id="main-header" className="bg-gradient-to-r from-makaranga-green to-makaranga-blue text-white shadow-lg p-6 flex justify-between items-center fixed w-full z-10">
         <div className="flex items-center space-x-6">
           <img src="/logo.png" alt="Makaranga Logo" className="h-14 animate-pulse" />
           <h1 className="text-5.5xl font-bold">{content[language].welcome}</h1>
@@ -47,8 +61,9 @@ function App() {
         </button>
       </header>
 
-      <main className="container mx-auto pt-28 pb-12 px-6">
-        <div className="text-center mb-12">
+      {/* Main content with dynamic padding */}
+      <main className="container mx-auto pb-12 px-6" style={{ paddingTop: 'var(--header-height)' }}>
+        <div className="text-center mb-12 mt-8">
           <p className="text-2xl text-makaranga-gray mb-6 animate-fade-in">{content[language].description}</p>
           <div className="relative">
             <input
@@ -72,20 +87,22 @@ function App() {
             {filteredProducts.map((product, index) => (
               <div
                 key={index}
-                className="bg-white border-2 border-makaranga-green/20 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3 p-6"
+                className="bg-white border-2 border-makaranga-green/20 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 p-6"
               >
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-56 object-cover rounded-lg mb-5 transform hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
-                />
-                <h3 className="text-2xl font-semibold text-gray-900">{product.name}</h3>
+                <div className="overflow-hidden rounded-lg mb-5">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-56 object-cover transform transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 className="text-2xl font-semibold text-gray-900 break-words">{product.name}</h3>
                 <p className="text-makaranga-gray mt-3">Price: <span className="text-makaranga-green">{product.price}</span></p>
                 <p className="text-makaranga-gray">Location: {product.location}</p>
                 <a
                   href="#"
-                  className="mt-5 inline-block bg-makaranga-blue text-white px-7 py-3 rounded-full hover:bg-makaranga-blue/80 transition-colors animate-bounce"
+                  className="mt-5 inline-block bg-makaranga-blue text-white px-7 py-3 rounded-full hover:bg-makaranga-blue/80 transition-colors"
                 >
                   {content[language].contact}
                 </a>
@@ -123,11 +140,6 @@ const styles = `
   @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
-  }
-  .animate-bounce { animation: bounce 2s infinite; }
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
   }
 `;
 
