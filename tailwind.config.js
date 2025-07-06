@@ -1,33 +1,42 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"], // Keep your original content paths
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+
   theme: {
     extend: {
       colors: {
-        'makaranga-green': '#4CAF50', // Custom green for branding
-        'makaranga-blue': '#2196F3', // Custom blue for accents
-        'makaranga-gray': '#757575', // Custom gray for text
-        'gradient-start': '#4CAF50', // Start of gradient
-        'gradient-end': '#2196F3', // End of gradient
+        // 🌿 Branding Colors
+        'makaranga-green': '#4CAF50',
+        'makaranga-blue': '#2196F3',
+        'makaranga-gray': '#757575',
+
+        // 🎨 Gradient Colors
+        'gradient-start': '#4CAF50',
+        'gradient-end': '#2196F3',
       },
+
       spacing: {
-        '72': '18rem', // Custom spacing for larger sections
-        '84': '21rem', // Additional custom spacing
+        '72': '18rem',  // Large spacing
+        '84': '21rem',
       },
+
       fontSize: {
-        '4.5xl': '2.5rem', // Custom larger font size for headers
-        '5.5xl': '3rem', // Even larger for emphasis
+        '4.5xl': '2.5rem', // Between 4xl and 5xl
+        '5.5xl': '3rem',   // Between 5xl and 6xl
       },
+
       backgroundImage: {
         'gradient-radial': 'radial-gradient(circle, #4CAF50, #2196F3)',
         'gradient-hero': 'linear-gradient(135deg, #4CAF50, #2196F3)',
       },
+
       animation: {
         'fade-in': 'fadeIn 1s ease-in',
         'slide-in': 'slideIn 1s ease-out',
         'pulse': 'pulse 2s infinite',
         'bounce': 'bounce 2s infinite',
       },
+
       keyframes: {
         fadeIn: {
           '0%': { opacity: 0 },
@@ -48,5 +57,6 @@ module.exports = {
       },
     },
   },
+
   plugins: [],
 };
