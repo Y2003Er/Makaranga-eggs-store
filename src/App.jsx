@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
 
 function App() {
-  // State for search and language
   const [searchTerm, setSearchTerm] = useState('');
   const [language, setLanguage] = useState('EN');
 
-  // Product data with images (place images in the public folder)
   const products = [
     { name: 'Fresh Organic Eggs', price: 'TSh 7,000', location: 'Dar es Salaam', image: '/organic-eggs.jpg' },
     { name: 'Wholesale Egg Tray', price: 'TSh 6,500', location: 'Arusha', image: '/egg-tray.jpg' },
     { name: 'Village Free-Range Eggs', price: 'TSh 8,000', location: 'Village', image: '/free-range-eggs.jpg' },
   ];
 
-  // Filter products based on search term
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.location.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Language content
   const content = {
     EN: {
       welcome: 'Welcome to Makaranga Eggs Store',
@@ -38,7 +34,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-makaranga-green/10 via-white to-makaranga-blue/10 font-sans">
-      {/* Header with Modern Design */}
       <header className="bg-gradient-to-r from-makaranga-green to-makaranga-blue text-white shadow-lg p-6 flex justify-between items-center fixed w-full z-10">
         <div className="flex items-center space-x-6">
           <img src="/logo.png" alt="Makaranga Logo" className="h-14 animate-pulse" />
@@ -52,7 +47,6 @@ function App() {
         </button>
       </header>
 
-      {/* Main Content with Padding for Fixed Header */}
       <main className="container mx-auto pt-28 pb-12 px-6">
         <div className="text-center mb-12">
           <p className="text-2xl text-makaranga-gray mb-6 animate-fade-in">{content[language].description}</p>
@@ -68,7 +62,6 @@ function App() {
           </div>
         </div>
 
-        {/* Listings with Impressive Grid */}
         <h2 className="text-4.5xl font-extrabold mb-10 text-transparent bg-gradient-to-r from-makaranga-green to-makaranga-blue bg-clip-text animate-slide-in">
           {content[language].listings}
         </h2>
@@ -102,7 +95,6 @@ function App() {
         )}
       </main>
 
-      {/* Footer with Modern Touch */}
       <footer className="bg-gradient-to-r from-makaranga-green to-makaranga-blue text-white p-6 text-center">
         <p className="text-xl">© 2025 Makaranga Eggs Store. All rights reserved.</p>
         <div className="mt-3 space-x-6">
@@ -115,7 +107,7 @@ function App() {
   );
 }
 
-// Simple CSS animations (now using Tailwind's keyframes)
+// Animation styles (using Tailwind's keyframes)
 const styles = `
   @keyframes fadeIn {
     from { opacity: 0; }
@@ -139,7 +131,6 @@ const styles = `
   }
 `;
 
-// Inject styles (for simplicity; consider using a CSS file in production)
 const styleSheet = document.createElement('style');
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
